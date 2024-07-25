@@ -1,0 +1,42 @@
+.previewCard {
+    height: 200px;
+    width: 400px;
+    margin: 12px;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+#footer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#logo {
+    height: 75px;
+    width: 75px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+#price {
+  margin-left: 15px;
+}
+
+#rank {
+  margin-right: 15px;
+}

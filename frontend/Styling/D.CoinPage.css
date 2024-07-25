@@ -1,0 +1,16 @@
+
+.container {
+    background-color: white;
+    min-height: 100vh;
+    color: #0f1c3f;
+    padding: 20px;
+    text-align: center;
+}
+
+
+.content{
+  background-color: #0f1c3f;
+  padding: 40px;
+  font: white;
+  border-radius: 10px;
+}

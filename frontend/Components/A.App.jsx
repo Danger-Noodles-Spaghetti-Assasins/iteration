@@ -4,9 +4,10 @@ import Homepage from './B.Homepage';
 import CoinPage from './D.CoinPage';
 import Coin from './E.Coin';
 import Graph from './G.Graph.jsx';
+import '../Styling/App.css';
 const App = () => {
     return (
-        <div>
+        <div id="outerContainer">
             <Router>
                 <Routes>
                     <Route path="/" element={<Homepage />} />
