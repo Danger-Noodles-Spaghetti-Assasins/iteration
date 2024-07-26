@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import PreviewCard from './PreviewCard';
+import PreviewCard from './C.PreviewCard.jsx';
 import Select from 'react-select';
 
 const Container = styled.div`

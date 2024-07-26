@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './HomePage';
-import CoinPage from './CoinPage';
-import Signup from './Signup';
-import Login from './Login';
-import Graph from './Graph';
+import HomePage from './B.HomePage.jsx';
+import CoinPage from './D.CoinPage.jsx';
+import Signup from './1.Signup.jsx';
+import Login from './2.Login.jsx';
+import Graph from './G.Graph.jsx';
 
 const App = () => {
   return (

@@ -1,5 +1,4 @@
-const axios = require("axios").default;
-
+import axios from "axios";
 const tiApiController = {};
 
 // middleware to retrieve coin list from TI API
@@ -62,11 +61,7 @@ tiApiController.ratingListMiddleware = async (req, res, next) => {
 
 // middleware to retrieve a single coin's complete data from TI API when coin ID is input through front end
 tiApiController.completeCoinMiddleware = async (req, res, next) => {
-  // destructure id from req.params
-  const { id } = req.params;
-  /* req.params.id is a string, not an object with an idCoin prop. 
-  see line 95 below for reference
-  */
+  const { id } = req.params; // destructure id from req.params
 
   const options = {
     method: "GET",
@@ -97,8 +92,7 @@ tiApiController.completeCoinMiddleware = async (req, res, next) => {
 
 // middleware to a single coin's historical price data from TI API when coin ID is input through front end
 tiApiController.historyCoinMiddleware = async (req, res, next) => {
-  // rename variable to reflect we aren't just fetching for 1d
-  const { id } = req.params;
+  const { id } = req.params; // rename variable to reflect we aren't just fetching for 1d
   const { interval, length } = req.query; // Get interval and length from query parameters
 
   const options = {
@@ -129,4 +123,4 @@ tiApiController.historyCoinMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = tiApiController;
+export default tiApiController;
