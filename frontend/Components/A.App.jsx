@@ -1,22 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Homepage from './B.Homepage';
-import CoinPage from './D.CoinPage';
-import Coin from './E.Coin';
-import Graph from './G.Graph.jsx';
+import HomePage from './HomePage';
+import CoinPage from './CoinPage';
+import Signup from './Signup';
+import Login from './Login';
+import Graph from './Graph';
+
 const App = () => {
-    return (
-        <div>
-            <Router>
-                <Routes>
-                    <Route path="/" element={<Homepage />} />
-                    <Route path="/graph" element={<Graph />} />
-                    {/* Modify the route to accept coinId as a URL parameter */}
-                    <Route path="/coinpage/:coinId" element={<CoinPage />} />
-                </Routes>
-            </Router>
-        </div>
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Signup />} />
+        <Route path="/homepage" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/graph" element={<Graph />} />
+        <Route path="/coinpage/:coinId" element={<CoinPage />} />
+      </Routes>
+    </Router>
+  );
 };
 
 export default App;
