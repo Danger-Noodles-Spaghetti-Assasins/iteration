@@ -44,6 +44,11 @@ app.use(cors());
 // route handler for requests to /api
 app.use('/api', routerAPI);
 
+// router handler for post requests to /signup
+app.post('/signup', (req,res) => {
+  res.sendStatus(201);
+})
+
 // Unknown route handler
 app.use((req, res) => res.sendStatus(404));
 
