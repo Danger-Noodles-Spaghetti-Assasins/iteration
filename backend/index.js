@@ -1,15 +1,14 @@
-const path = require('path');
-const axios = require('axios').default;
-const express = require('express');
-const { supabase } = require('./supabaseClient');
-const { Pool } = require('pg');
-const cors = require('cors');
-const dotenv = require('dotenv').config();
+const path = require("path");
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv").config();
+const logIn = require('./controllers/userController');
 
 const app = express();
 const PORT = 8080;
+const SALT_WORK_FACTOR = 10;
 
-const apiPath = path.join(__dirname, '/routes/api.js');
+const apiPath = path.join(__dirname, "/routes/api.js");
 const routerAPI = require(apiPath);
 
 // const dbFunctionality = () => {
@@ -28,21 +27,21 @@ const routerAPI = require(apiPath);
 //   });
 // };
 
-
-
 app.use(express.json());
 
 // CORS middleware options
 const corsOptions = {
-  origin: 'http://localhost:3000',
-  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200, // Some legacy browsers choke on 204
 };
 
 // enable CORS for all routes
 app.use(cors());
 
 // route handler for requests to /api
-app.use('/api', routerAPI);
+app.use("/api", routerAPI);
+
+app.post('/logIn', logIn);
 
 // Unknown route handler
 app.use((req, res) => res.sendStatus(404));
@@ -50,12 +49,12 @@ app.use((req, res) => res.sendStatus(404));
 // Global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
+    log: "Express error handler caught unknown middleware error",
     status: 500,
-    message: { err: 'An error occurred' },
+    message: { err: "An error occurred" },
   };
   const errorObj = Object.assign({}, defaultErr, err);
-  console.log('errorObj.log: ', errorObj.log);
+  console.log("errorObj.log: ", errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
 
