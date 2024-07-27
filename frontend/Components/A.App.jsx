@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './B.Homepage';
 import CoinPage from './D.CoinPage';
 import Coin from './E.Coin';
+import Signup from './1.Signup.jsx';
+import Login from './2.Login.jsx';
 import Graph from './G.Graph.jsx';
 import '../Styling/App.css';
 import '@fontsource/roboto/300.css';
@@ -30,10 +32,12 @@ import { dark } from '@mui/material/styles/createPalette.js';
             <div id="outerContainer">
                 <Router>
                     <Routes>
-                        <Route path="/" element={<Homepage />} />
+                    <Route path="/homepage" element={<Homepage />} />
                         <Route path="/graph" element={<Graph />} />
                         {/* Modify the route to accept coinId as a URL parameter */}
                         <Route path="/coinpage/:coinId" element={<CoinPage />} />
+                        <Route path="/" element={<Signup />} />
+                        <Route path="/login" element={<Login />} />
                     </Routes>
                 </Router>
             </div>

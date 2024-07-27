@@ -7,56 +7,51 @@ import { Autocomplete, TextField, Typography } from "@mui/material";
 import '../Styling/B.Homepage.css';
 
 const handleClick = (name) => {
-    console.log(`clicked ${name}`)
-    // We can't fully build this out yet
+  console.log(`clicked ${name}`)
+  // We can't fully build this out yet
 };
 
 const HomePage = () => {
+  const [cryptoData, setCryptoData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
-    const [cryptoData, setCryptoData] = useState([]);
-    const [filteredData, setFilteredData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [searchTerm, setSearchTerm] = useState('');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/coins', {
+          method: "GET"
+        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log("data: ", data)
+          const newArr = data.coinList.data.items;
+          setCryptoData(newArr);
+        } else {
+          throw new Error(`Error: ${response.status}`);
+        }
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchData();
+  }, []);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('/api/coins', {
-                    method: "GET"
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log("data: ", data)
-                    const newArr = data.coinList.data.items;
-                    setCryptoData(newArr);
-                } else {
-                    throw new Error(`Error: ${response.status}`);
-                }
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        //format the API response for react-select
-        let options = cryptoData.map(function (coin) {
-            return { value: coin.name, label: coin.name };
-        })
-        setFilteredData(options);
-    }, [searchTerm, cryptoData]);
+  useEffect(() => {
+    let options = cryptoData.map(function (coin) {
+      return { value: coin.name, label: coin.name };
+    })
+    setFilteredData(options);
+  }, [searchTerm, cryptoData]);
 
     // if (loading) {
     //     return <div>Loading...</div>;
     // }
-
-  
 
     // const handleSelectChange = (selectedOption) => {
     //     navigate(`/coin/${selectedOption.value}`);
