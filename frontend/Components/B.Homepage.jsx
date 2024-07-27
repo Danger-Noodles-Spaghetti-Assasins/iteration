@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PreviewCard from './C.PreviewCard';
-import { Autocomplete, TextField, Typography } from "@mui/material";
+import { Autocomplete, TextField, Typography, Grid } from "@mui/material";  
 // import Select from 'react-select';
-import '../Styling/B.Homepage.css';
+// import '../Styling/B.Homepage.css';
 
 const handleClick = (name) => {
   console.log(`clicked ${name}`)
@@ -49,9 +48,9 @@ const HomePage = () => {
     setFilteredData(options);
   }, [searchTerm, cryptoData]);
 
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    // }
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     // const handleSelectChange = (selectedOption) => {
     //     navigate(`/coin/${selectedOption.value}`);
@@ -61,34 +60,29 @@ const HomePage = () => {
     return (
         <div id="container">
             <Typography variant='h1' gutterBottom>CryptoShield</Typography>
-
-            <div id='cardContainer'>
+            <Grid container spacing={2}>
                 {cryptoData.map((crypto, index) => (
-                <Link key={index} to={`/coinpage/${crypto.id}`} style={{ textDecoration: 'none' }}>
-                    <PreviewCard
-                    name={crypto.name}
-                    price={crypto.price}
-                    logo={crypto.logo}
-                    rank={index + 1}
-                    symbol={crypto.symbol}
-                    />
-                </Link>
+                    <Grid item xs={12} md={6} lg={4}>
+                        <Link key={index} to={`/coinpage/${crypto.id}`} style={{ textDecoration: 'none' }}>
+                            <PreviewCard
+                            name={crypto.name}
+                            price={crypto.price}
+                            logo={crypto.logo}
+                            rank={index + 1}
+                            symbol={crypto.symbol}
+                            />
+                        </Link>
+                    </Grid>
                 ))}
-            </div>
-
-            <div id='searchBarContainer'>
-                <div className="width100">
-                    {/* needed separate div to format width of Select */}
-                    <Autocomplete
-                        disablePortal
-                        id="findCrypto"
-                        options={filteredData}
-                        sx={{width: 400}}
-                        renderInput={(params) => <TextField {...params} label="Search" />}
-                    />
-
-                </div>
-            </div>
+            </Grid>
+            {/* needed separate div to format width of Select */}
+            <Autocomplete
+                disablePortal
+                id="findCrypto"
+                options={filteredData}
+                sx={{width: 400}}
+                renderInput={(params) => <TextField {...params} label="Search" />}
+            />
         </div>
     );
 };

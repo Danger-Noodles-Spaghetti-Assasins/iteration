@@ -11,6 +11,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import NavBar from './NavBar';
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { orange } from "@mui/material/colors";
 import { dark } from '@mui/material/styles/createPalette.js';
@@ -30,6 +31,7 @@ import { dark } from '@mui/material/styles/createPalette.js';
         <ThemeProvider theme={theme}>
             <CssBaseline/>    
             <div id="outerContainer">
+                <NavBar/>
                 <Router>
                     <Routes>
                     <Route path="/homepage" element={<Homepage />} />

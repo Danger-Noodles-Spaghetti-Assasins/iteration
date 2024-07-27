@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 // import '../Styling/C.PreviewCard.css';
 import {Box, Typography, Avatar} from "@mui/material";
 
@@ -19,13 +18,9 @@ const PreviewCard = ({ name, price, symbol, logo, rank }) => { // Added onClick 
           bgcolor: 'primary.dark',
         }
       }}>
-      <div id="header">
-        {/* <CheckBoxStyle type="checkbox" checked={checked} onChange={handleSelect} />
-        <CompareText>Compare</CompareText> */}
-      </div>
-      <h3>{name}</h3>
-      <Avatar className="logo" src={logo} alt={`${name} logo`} sx={{ height: 75, width: 75,mt: 5, mb: 20 }} />
-      <div id="footer">
+      <div><Typography variant='h5'>{name}</Typography></div>
+      <div><Avatar className="logo" src={logo} alt={`${name} logo`} sx={{ height: 75, width: 75,mt: 5, mb: 20 }} /></div>
+      <div>
         <Typography align='center' sx={{mx:2, verticalAlign: 'middle'}}>
           <Typography color='text.primary'>
             Active Price: ${Number(price.toFixed(2)).toLocaleString('en-US')}
