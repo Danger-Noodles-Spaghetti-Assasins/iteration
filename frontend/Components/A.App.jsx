@@ -13,7 +13,7 @@ import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { orange } from "@mui/material/colors";
 import { dark } from '@mui/material/styles/createPalette.js';
 
-const App = () => {
+ const App = () => {
     const theme = createTheme({
         palette:{
             mode: "dark",
