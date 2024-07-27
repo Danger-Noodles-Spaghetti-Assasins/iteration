@@ -63,12 +63,12 @@ const Signup = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/api/signup', {
+      const response = await axios.post('http://localhost:3000/api/signup', {
         username,
         password,
         email,
       });
-      if (response.status === 201) {
+      if (response.status === 200) {
         const { user } = response.data;
         console.log('User registered successfully:', response.data);
         localStorage.setItem('userData', JSON.stringify({ user }));
