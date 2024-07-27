@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PreviewCard from './C.PreviewCard';
-import Select from 'react-select';
+import { Autocomplete, TextField, Typography } from "@mui/material";
+// import Select from 'react-select';
 import '../Styling/B.Homepage.css';
 
 const handleClick = (name) => {
@@ -64,7 +65,7 @@ const HomePage = () => {
 
     return (
         <div id="container">
-            <h1 id='homepageTitle'>CryptoShield</h1>
+            <Typography variant='h1' gutterBottom>CryptoShield</Typography>
 
             <div id='cardContainer'>
                 {cryptoData.map((crypto, index) => (
@@ -83,22 +84,12 @@ const HomePage = () => {
             <div id='searchBarContainer'>
                 <div className="width100">
                     {/* needed separate div to format width of Select */}
-                    <Select
-                        styles={{
-                            menu: (baseStyles) => ({
-                                ...baseStyles,
-                                color: 'black',
-                            }),
-                        }}
-                        menuPlacement='auto'
-                        placeholder="Search"
+                    <Autocomplete
+                        disablePortal
+                        id="findCrypto"
                         options={filteredData}
-                        value={searchTerm}
-                        labelKey='name'
-                        valueKey='name'
-                        color='black'
-                        //onChange={(e) => setSearchTerm(e.target.value)} 
-                        onChange={(e) => handleClick(e.value)}
+                        sx={{width: 400}}
+                        renderInput={(params) => <TextField {...params} label="Search" />}
                     />
 
                 </div>
