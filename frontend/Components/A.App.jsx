@@ -1,23 +1,48 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './B.HomePage.jsx';
-import CoinPage from './D.CoinPage.jsx';
+import Homepage from './B.Homepage';
+import CoinPage from './D.CoinPage';
+import Coin from './E.Coin';
 import Signup from './1.Signup.jsx';
 import Login from './2.Login.jsx';
 import Graph from './G.Graph.jsx';
+import '../Styling/App.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
+import { orange } from "@mui/material/colors";
+import { dark } from '@mui/material/styles/createPalette.js';
 
-const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Signup />} />
-        <Route path="/homepage" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/graph" element={<Graph />} />
-        <Route path="/coinpage/:coinId" element={<CoinPage />} />
-      </Routes>
-    </Router>
-  );
+ const App = () => {
+    const theme = createTheme({
+        palette:{
+            mode: "dark",
+            primary: {
+                main: orange[500]
+            }
+        }
+    })
+
+
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>    
+            <div id="outerContainer">
+                <Router>
+                    <Routes>
+                    <Route path="/homepage" element={<Homepage />} />
+                        <Route path="/graph" element={<Graph />} />
+                        {/* Modify the route to accept coinId as a URL parameter */}
+                        <Route path="/coinpage/:coinId" element={<CoinPage />} />
+                        <Route path="/" element={<Signup />} />
+                        <Route path="/login" element={<Login />} />
+                    </Routes>
+                </Router>
+            </div>
+        </ThemeProvider>
+    );
 };
 
 export default App;

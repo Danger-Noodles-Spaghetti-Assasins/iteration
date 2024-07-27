@@ -2,26 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Coin from './E.Coin';
 import { useParams } from 'react-router-dom';
-
-
-
-
-const Container = styled.div`
-background-color: white;
-min-height: 100vh;
-color: #0f1c3f;
-padding: 20px;
-text-align: center;
-`;
-
-
-const Content = styled.div`
-  background-color: #0f1c3f;
-  padding: 40px;
-  font-color: white;
-  border-radius: 10px;
-`;
-
+import '../Styling/D.CoinPage.css';
 
 const CoinPage = () => {
     const { coinId } = useParams(); // Extract coinId from URL
@@ -94,8 +75,6 @@ const CoinPage = () => {
     }
 
 
-
-
      //Ensure that market_data and its price array are defined before accessing
      const marketData = cryptoData.market_data;
      if (!marketData || !marketData.price || !marketData.price[0]) {
@@ -105,10 +84,8 @@ const CoinPage = () => {
     return (
 
 //priceData.price_latest ? `${Number(priceData.price_latest).toLocaleString('en-US')}` : `N/A`
-
-
-        <Container>
-            <Content>
+        <div className='container'>
+            <div className='content'>
                 <Coin
                     key={cryptoData.id ? cryptoData.id : `N/A`}
                     coinId={cryptoData.id ? cryptoData.id : `N/A`}
@@ -128,14 +105,9 @@ const CoinPage = () => {
                 // need to add more data points
                 // ^^^like what???
                 />
-            </Content>
-        </Container >
-
-
+            </div>
+        </div>
     );
-
-
 };
-
 
 export default CoinPage;
