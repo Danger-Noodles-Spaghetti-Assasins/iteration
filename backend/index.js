@@ -12,25 +12,52 @@ dotenv.config();
 
 const app = express();
 const PORT = 8080;
+const SALT_WORK_FACTOR = 10;
+
+
+const apiPath = path.join(__dirname, "/routes/api.js");
+const routerAPI = require(apiPath);
+
+// const dbFunctionality = () => {
+//   // Supabase setup
+//   const supabaseUrl = 'https://your-supabase-url.supabase.co';
+//   const supabaseKey = 'your-supabase-anon-key';
+//   const supabase = createClient(supabaseUrl, supabaseKey);
+
+//   // PostgreSQL setup
+//   const pool = new Pool({
+//     user: 'your-db-user',
+//     host: 'localhost',
+//     database: 'your-db-name',
+//     password: 'your-db-password',
+//     port: 5432,
+//   });
+// };
+
 
 // this fixes the issue with ES modules: passes __dirname from import.meta.url
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
+
 app.use(express.json());
 
 // CORS middleware options
 const corsOptions = {
   origin: "http://localhost:3000",
-  optionsSuccessStatus: 200,
+  optionsSuccessStatus: 200, // Some legacy browsers choke on 204
 };
 
 // Enable CORS for all routes
 app.use(cors(corsOptions));
 
-// Route handler for requests to /api
+// route handler for requests to /api
 app.use("/api", routerAPI);
+
+// route handler for requests to /logIn
+app.post("/logIn", logIn);
+
 
 // Unknown route handler
 app.use((req, res) => res.sendStatus(404));
