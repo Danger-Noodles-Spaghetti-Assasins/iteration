@@ -2,10 +2,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 import axios from "axios";
 import express from "express";
-import { supabase } from "./supabase/supabaseClient.js";
 import cors from "cors";
 import dotenv from "dotenv";
 import routerAPI from "./routes/api.js";
+import userController from "./controllers/userController.js"
 
 // Load environment variables from .env file
 dotenv.config();
@@ -15,8 +15,8 @@ const PORT = 8080;
 const SALT_WORK_FACTOR = 10;
 
 
-const apiPath = path.join(__dirname, "/routes/api.js");
-const routerAPI = require(apiPath);
+//const apiPath = path.join(__dirname, "/routes/api.js");
+//const routerAPI = require(apiPath);
 
 // const dbFunctionality = () => {
 //   // Supabase setup
@@ -53,13 +53,22 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // route handler for requests to /api
-app.use("/api", routerAPI);
+app.use("/api", routerAPI, (req, res) => {
+  res.sendStatus(200);
+});
 
 // route handler for requests to /logIn
-app.post("/logIn", logIn);
+app.post("/logIn", userController.logIn, (req, res) => {
+  res.sendStatus(200);
+});
 
+
+app.post("/signup", userController.createUser, (req, res) => {
+  res.sendStatus(200);
+});
 
 // Unknown route handler
+
 app.use((req, res) => res.sendStatus(404));
 
 // Global error handler
