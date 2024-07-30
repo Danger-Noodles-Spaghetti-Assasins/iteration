@@ -20,20 +20,22 @@ userController.logIn = async (req, res, next) => {
     }
 
     const user = data[0];
+    res.locals.user = user;
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
-    res.status(200).json({ id: user.id, username: user.username });
+    return next();
   } catch (err) {
     next(err);
   }
 };
 
 userController.createUser = async (req, res, next) => {
-  async function hashPassword(password) {
-    const hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
+  async function hashPassword(password){
+      const hashedPassword = await bcrypt.hash
+  (password, SALT_WORK_FACTOR);
     return hashedPassword;
   }
   try {
@@ -42,6 +44,8 @@ userController.createUser = async (req, res, next) => {
     const password = await hashPassword(req.body.password);
     const email = req.body.email;
     console.log({ email }, req.body.email);
+
+    
     const { error } = await supabase
       .from("users")
       .insert({ username, password: password, email: email });

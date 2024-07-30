@@ -36,14 +36,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // route handler for requests to /api
-app.use("/api", routerAPI, (req, res) => {
-  res.sendStatus(200);
-});
+app.use("/api", routerAPI);
 
-// route handler for requests to /logIn
-app.post("/logIn", userController.logIn);
 
-app.post("/signup", userController.createUser);
 
 // Unknown route handler
 
