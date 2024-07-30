@@ -71,8 +71,6 @@ const Signup = () => {
       if (response.status === 200) {
         const { user } = response.data;
         console.log('User registered successfully:', response.data);
-        localStorage.setItem('userData', JSON.stringify({ user }));
-        alert(user);
         navigate('/homepage');
       } else {
         console.error('Unexpected status code:', response.status);

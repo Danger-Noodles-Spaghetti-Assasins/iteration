@@ -1,5 +1,6 @@
 import express from "express";
 import tiApiController from "../controllers/tiApiController.js"
+import userController from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -28,4 +29,13 @@ router.get(
   }
 );
 
+router.post(
+  "/logIn",
+  userController.logIn, (req, res) => { 
+  res.status(200).json({ user: res.locals.user })}
+);
+
+router.post("/signup", userController.createUser, (req, res) => {
+  res.status(200).json({ user: res.locals.user });
+});
 export default router;
