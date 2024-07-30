@@ -4,8 +4,8 @@ import supabase from "../supabase/supabaseClient.js";
 const SALT_WORK_FACTOR = 10;
 
 const userController = {};
-// route handler for request to /login
 
+// route handler for request to /login
 userController.logIn = async (req, res, next) => {
   const { username, password } = req.body;
 
@@ -31,13 +31,13 @@ userController.logIn = async (req, res, next) => {
   }
 };
 
-userController.createUser = async (req, next) => {
+userController.createUser = async (req, res, next) => {
   async function hashPassword(password) {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
     return hashedPassword;
   }
   try {
-    console.log("Tried Block Enter")
+    console.log("Tried Block Enter");
     const username = req.body.username;
     const password = await hashPassword(req.body.password);
     const email = req.body.email;
@@ -45,6 +45,7 @@ userController.createUser = async (req, next) => {
     const { error } = await supabase
       .from("users")
       .insert({ username, password: password, email: email });
+    console.log("USER CREATED AND SAVED");
     if (error) {
       throw error;
     } else return next();
@@ -56,8 +57,5 @@ userController.createUser = async (req, next) => {
     return next(errObj);
   }
 };
-  
-  
-export default userController;
-  
 
+export default userController;
