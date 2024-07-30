@@ -4,12 +4,27 @@ import Graph from './G.Graph.jsx';
 import '../Styling/E.Coin.css';
 import { Button } from "@mui/material";
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 
 const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, rank, rating, marketCap, circulatingSupply, totalSupply, low, high }) => {
 
   const [coinsData, setCoinsData] = useState([]);
   const [ratingsData, setRatingsData] = useState([]);
+
+  const favoriteBtn = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3000/api/favCoin', {
+        // TODO: figure out how to pull userId from jwt/cookies
+        userId,
+        coinId,
+      })
+    } catch (error) {
+      console.error('Error favoriting coin:', error.response?.data || error.message);
+      alert('Favoriting coin failed. Please try again later.'); 
+    }
+  };
 
   return (
     <Box sx={{
@@ -20,7 +35,7 @@ const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, ran
       </section>
       <div id="sidebar">
         <h3 id="coinName">{name}</h3>
-        <Button variant="contained"> Favorite </Button>
+        <Button variant="contained" onClick="favoriteBtn"> Favorite </Button>
         <h1 id="coinPrice">{`${'$' + price.toLocaleString('en-US')}`}</h1>
         <p className="coinDetail">Rank: {rank}</p>
         <p className="coinDetail">Rating: {rating}</p>
