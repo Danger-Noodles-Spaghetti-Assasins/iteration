@@ -57,6 +57,7 @@ userController.createUser = async (req, next) => {
   }
 };
   
+// userController.favCoin = async()
   
 export default userController;
   
