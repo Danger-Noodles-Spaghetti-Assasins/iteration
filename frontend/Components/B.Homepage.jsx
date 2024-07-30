@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 //import { Link } from 'react-router-dom';
 import PreviewCard from './C.PreviewCard';
-import { Autocomplete, TextField, Grid, Box, Link } from "@mui/material";
+import {Grid, Box, Link } from "@mui/material";
 
 // import Select from 'react-select';
 // import '../Styling/B.Homepage.css';
@@ -63,10 +63,10 @@ const HomePage = () => {
 
     return (
         <div id="container">
-            <Box sx={{ flexGrow: 1, mx:10}}>
+            <Box sx={{ flexGrow: 1, mx:'10%'}}>
               <Grid container spacing={4}>
                 {cryptoData.map((crypto, index) => (
-                    <Grid item xs={12} md={6} lg={4} justifyContent='center'>
+                    <Grid item xs={12} sm={6} md={4} lg={3} justifyContent='center'>
                         <Link key={index} href={`/coinpage/${crypto.id}`} underline="none">
                             <PreviewCard
                             name={crypto.name}
