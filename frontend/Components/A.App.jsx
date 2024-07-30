@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './B.Homepage';
 import CoinPage from './D.CoinPage';
-import Coin from './E.Coin';
 import Signup from './1.Signup.jsx';
 import Login from './2.Login.jsx';
 import Graph from './G.Graph.jsx';

@@ -41,13 +41,9 @@ app.use("/api", routerAPI, (req, res) => {
 });
 
 // route handler for requests to /logIn
-app.post("/logIn", userController.logIn, (req, res) => {
-  res.sendStatus(200);
-});
+app.post("/logIn", userController.logIn);
 
-app.post("/signup", userController.createUser, (req, res) => {
-  res.sendStatus(200);
-});
+app.post("/signup", userController.createUser);
 
 // Unknown route handler
 
