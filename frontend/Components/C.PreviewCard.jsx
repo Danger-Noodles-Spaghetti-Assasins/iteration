@@ -11,15 +11,16 @@ const PreviewCard = ({ name, price, symbol, logo, rank }) => { // Added onClick 
   };
 
   return (
-    <Box height={200} width={400} display="flex" alignItems="center" gap={4} my={4} p={2} 
-      sx={{width: 400, height: 200, borderRadius: 1,
+    <Box
+      sx={{borderRadius: 1,
         bgcolor: 'primary.main',
         '&:hover': {
           bgcolor: 'primary.dark',
-        }
+        },
+        p: 2
       }}>
-      <div><Typography variant='h5'>{name}</Typography></div>
-      <div><Avatar className="logo" src={logo} alt={`${name} logo`} sx={{ height: 75, width: 75,mt: 5, mb: 20 }} /></div>
+      <Typography variant='h5' color={"primary.contrastText"}>{name}</Typography>
+      <div><Avatar className="logo" src={logo} alt={`${name} logo`} sx={{ height: '50%', width: '50%', mt: 5, mb: 20 }} /></div>
       <div>
         <Typography align='center' sx={{mx:2, verticalAlign: 'middle'}}>
           <Typography color='text.primary'>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import PreviewCard from './C.PreviewCard';
-import { Autocomplete, TextField, Typography, Grid } from "@mui/material";  
+import { Autocomplete, TextField, Grid, Box, Link } from "@mui/material";
+
 // import Select from 'react-select';
 // import '../Styling/B.Homepage.css';
 
@@ -31,8 +32,8 @@ const HomePage = () => {
         } else {
           throw new Error(`Error: ${response.status}`);
         }
-      } catch (error) {
-        setError(error.message);
+      } catch (err) {
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -40,6 +41,9 @@ const HomePage = () => {
 
     fetchData();
   }, []);
+
+  if(error)
+    console.log(JSON.stringify(error));
 
   useEffect(() => {
     let options = cryptoData.map(function (coin) {
@@ -59,11 +63,11 @@ const HomePage = () => {
 
     return (
         <div id="container">
-            <Typography variant='h1' gutterBottom>CryptoShield</Typography>
-            <Grid container spacing={2}>
+            <Box sx={{ flexGrow: 1, mx:10}}>
+              <Grid container spacing={4}>
                 {cryptoData.map((crypto, index) => (
-                    <Grid item xs={12} md={6} lg={4}>
-                        <Link key={index} to={`/coinpage/${crypto.id}`} style={{ textDecoration: 'none' }}>
+                    <Grid item xs={12} md={6} lg={4} justifyContent='center'>
+                        <Link key={index} href={`/coinpage/${crypto.id}`} underline="none">
                             <PreviewCard
                             name={crypto.name}
                             price={crypto.price}
@@ -74,15 +78,9 @@ const HomePage = () => {
                         </Link>
                     </Grid>
                 ))}
-            </Grid>
+              </Grid>
             {/* needed separate div to format width of Select */}
-            <Autocomplete
-                disablePortal
-                id="findCrypto"
-                options={filteredData}
-                sx={{width: 400}}
-                renderInput={(params) => <TextField {...params} label="Search" />}
-            />
+            </Box>
         </div>
     );
 };
