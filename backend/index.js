@@ -1,11 +1,11 @@
 import path from "path";
 import { fileURLToPath } from "url";
-import axios from "axios";
+//import axios from "axios";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import routerAPI from "./routes/api.js";
-import userController from "./controllers/userController.js"
+import userController from "./controllers/userController.js";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -14,25 +14,8 @@ const app = express();
 const PORT = 8080;
 const SALT_WORK_FACTOR = 10;
 
-
 //const apiPath = path.join(__dirname, "/routes/api.js");
 //const routerAPI = require(apiPath);
-
-// const dbFunctionality = () => {
-//   // Supabase setup
-//   const supabaseUrl = 'https://your-supabase-url.supabase.co';
-//   const supabaseKey = 'your-supabase-anon-key';
-//   const supabase = createClient(supabaseUrl, supabaseKey);
-
-//   // PostgreSQL setup
-//   const pool = new Pool({
-//     user: 'your-db-user',
-//     host: 'localhost',
-//     database: 'your-db-name',
-//     password: 'your-db-password',
-//     port: 5432,
-//   });
-// };
 
 
 // this fixes the issue with ES modules: passes __dirname from import.meta.url
@@ -61,7 +44,6 @@ app.use("/api", routerAPI, (req, res) => {
 app.post("/logIn", userController.logIn, (req, res) => {
   res.sendStatus(200);
 });
-
 
 app.post("/signup", userController.createUser, (req, res) => {
   res.sendStatus(200);
