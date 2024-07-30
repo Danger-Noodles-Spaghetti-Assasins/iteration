@@ -17,8 +17,7 @@ const PreviewCard = ({ name, price, symbol, logo, rank }) => { // Added onClick 
         bgcolor: 'primary.main',
         '&:hover': {
           bgcolor: 'primary.dark',
-        },
-        p: 2
+        }
       }}>
       <Grid item xs='12'><Typography variant='h5' color={"primary.contrastText"} mt={2} sx={{textAlign:'center'}}>{name}</Typography></Grid>
       <Grid item xs='12'><Avatar className="logo" src={logo} alt={`${name} logo`} sx={{height: 'auto', width:'auto', m:'20%', }}/></Grid>
