@@ -69,9 +69,9 @@ const Signup = () => {
         email,
       });
       if (response.status === 200) {
-        const { user } = response.data;
+        const { user, token } = response.data;
+        localStorage.setItem('token', token); // store the token in localstorage
         console.log('User registered successfully:', response.data);
-        localStorage.setItem('userData', JSON.stringify({ user }));
         navigate('/homepage');
       } else {
         console.error('Unexpected status code:', response.status);

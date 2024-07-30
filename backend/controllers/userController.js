@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import supabase from "../supabase/supabaseClient.js";
 
+const JWT_SECRET = process.env.JWT_SECRET;
 const SALT_WORK_FACTOR = 10;
 
 const userController = {};
@@ -20,12 +22,22 @@ userController.logIn = async (req, res, next) => {
     }
 
     const user = data[0];
+    res.locals.user = user;
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
-    res.status(200).json({ id: user.id, username: user.username });
+    // generate jwt token
+    const token = jwt.sign(
+      { id: user.id, username: username.username },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    // save user and token to res.locals
+    res.locals.user = { id: user.id, username: user.username };
+    res.locals.token = token;
+    return next();
   } catch (err) {
     next(err);
   }
@@ -37,18 +49,31 @@ userController.createUser = async (req, res, next) => {
     return hashedPassword;
   }
   try {
-    console.log("Tried Block Enter");
     const username = req.body.username;
     const password = await hashPassword(req.body.password);
     const email = req.body.email;
-    console.log({ email }, req.body.email);
-    const { error } = await supabase
+
+    const { data, error } = await supabase
       .from("users")
-      .insert({ username, password: password, email: email });
-    console.log("USER CREATED AND SAVED");
+      .insert({ username, password, email })
+      .select("*"); // assuming supabase returns the inserted user data
     if (error) {
       throw error;
-    } else return next();
+    }
+
+    const user = data[0];
+
+    // generate jwt token
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // save user and token to res.locals
+    res.locals.user = { id: user.id, username: user.username };
+    res.locals.token = token;
+    return next();
   } catch (err) {
     const errObj = {
       log: `Create user failed: ${err}`,
@@ -57,5 +82,7 @@ userController.createUser = async (req, res, next) => {
     return next(errObj);
   }
 };
+
+// userController.favCoin = async()
 
 export default userController;
