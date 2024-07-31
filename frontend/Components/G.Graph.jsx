@@ -2,37 +2,9 @@ import React, { useEffect, useState } from 'react'; // Import React and hooks (u
 import Plot from 'react-plotly.js'; // Import Plot component from react-plotly.js
 import axios from 'axios'; // Import axios for making HTTP requests
 import styled from 'styled-components'; // Import styled-components for styling
+import '../Styling/G.Graph.css';
 
 // Styled components
-const Container = styled.div`
-  background-color: #0f1c3f;
-  min-height: 100vh;
-  color: white;
-  padding: 20px;
-  text-align: center;
-`;
-
-const Title = styled.h2`
-  font-size: 2rem;
-  margin-bottom: 20px;
-`;
-
-const Dropdown = styled.select`
-  background-color: #2c3e50;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-`;
-
-const PlotContainer = styled.div`
-  margin: 20px 0;
-`;
-
-const HighLowVolumeContainer = styled.div`
-  margin-top: 20px;
-`;
 
 const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a prop
     const [data, setData] = useState([]); // State to store the data for the combined line and bar chart
@@ -167,11 +139,11 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
         const low = Math.min(...prices);
         const volume = volumes.reduce((acc, val) => acc + val, 0);
         return (
-            <HighLowVolumeContainer>
+            <div id="highLowVolumeContainer">
                 <p><strong>High:</strong> {`$${Number(high.toFixed(2)).toLocaleString('en-US')}`}</p>
                 <p><strong>Low:</strong> {`$${Number(low.toFixed(2)).toLocaleString('en-US')}`}</p>
                 <p><strong>Volume:</strong> {`$${Number(volume.toFixed(2)).toLocaleString('en-US')}`}</p>
-            </HighLowVolumeContainer>
+            </div>
         );
     };
 
@@ -185,9 +157,9 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
     };
 
     return (
-        <Container>
-            <Title>{name} Price and Volume</Title> {/* Dynamic title */}
-            <Dropdown onChange={handleIntervalChange}> {/* Dropdown for interval/length selection */}
+        <div id="graphContainer">
+            <h2 id="title">{name} Price and Volume</h2> {/* Dynamic title */}
+            <select id="dropDown" onChange={handleIntervalChange}> {/* Dropdown for interval/length selection */}
                 {intervalOptions.map(option => (
                     <option key={option.label} value={option.label}>
                         {option.label}
@@ -195,9 +167,9 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
 
                 ))}
                            
-            </Dropdown>
+            </select>
             {intervalLength.length === 24 && intervalLength.interval === 'hour' ? (
-                <PlotContainer>
+                <div className="plotContainer">
                     <Plot
                         data={[data[1]]} // Only plot the price line for 1 day/hour
                         layout={{
@@ -213,10 +185,10 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                         style={{ width: '100%', height: '400px' }}
                     />
                     {renderHighLowVolume()}
-                </PlotContainer>
+                </div>
             ) : (
                 <>
-                    <PlotContainer>
+                    <div className="plotContainer">
                         <Plot
                             data={data}
                             layout={{
@@ -245,8 +217,8 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                             }}
                             style={{ width: '100%', height: '400px' }}
                         />
-                    </PlotContainer>
-                    <PlotContainer>
+                    </div>
+                    <div className="plotContainer">
                         <h2>{name} Price vs Volume</h2>
                         <Plot
                             data={scatterData}
@@ -262,8 +234,8 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                             }}
                             style={{ width: '100%', height: '400px' }}
                         />
-                    </PlotContainer>
-                    <PlotContainer>
+                    </div>
+                    <div className="plotContainer">
                         <h2>{name} Price Candlestick</h2>
                         <Plot
                             data={candlestickData} // Plot the candlestick chart
@@ -279,10 +251,10 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                             }}
                             style={{ width: '100%', height: '400px' }}
                         />
-                    </PlotContainer>
+                    </div>
                 </>
             )}
-        </Container>
+        </div>
     );
 };
 
