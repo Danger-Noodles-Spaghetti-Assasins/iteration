@@ -1,5 +1,6 @@
 import axios from "axios";
 const tiApiController = {};
+const TIAPIKEY = "ec70aae1fcb94df99aa67c702f7fd697";
 
 // middleware to retrieve coin list from TI API
 tiApiController.coinListMiddleware = async (req, res, next) => {
@@ -8,7 +9,7 @@ tiApiController.coinListMiddleware = async (req, res, next) => {
     url: "https://api.tokeninsight.com/api/v1/coins/list",
     headers: {
       accept: "application/json",
-      TI_API_KEY: "ec70aae1fcb94df99aa67c702f7fd697",
+      TI_API_KEY: TIAPIKEY,
     },
   };
 
@@ -37,7 +38,7 @@ tiApiController.ratingListMiddleware = async (req, res, next) => {
     url: "https://api.tokeninsight.com/api/v1/rating/coins",
     headers: {
       accept: "application/json",
-      TI_API_KEY: "ec70aae1fcb94df99aa67c702f7fd697",
+      TI_API_KEY: TIAPIKEY,
     },
   };
 
@@ -68,7 +69,7 @@ tiApiController.completeCoinMiddleware = async (req, res, next) => {
     url: `https://api.tokeninsight.com/api/v1/coins/${id}`, // use the destructured id
     headers: {
       accept: "application/json",
-      TI_API_KEY: "ec70aae1fcb94df99aa67c702f7fd697",
+      TI_API_KEY: TIAPIKEY,
     },
   };
 
@@ -100,7 +101,7 @@ tiApiController.historyCoinMiddleware = async (req, res, next) => {
     url: `https://api.tokeninsight.com/api/v1/history/coins/${id}?interval=${interval}&length=${length}`, // Construct URL dynamically
     headers: {
       accept: "application/json",
-      TI_API_KEY: "ec70aae1fcb94df99aa67c702f7fd697",
+      TI_API_KEY: TIAPIKEY,
     },
   };
 
