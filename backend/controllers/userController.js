@@ -30,7 +30,7 @@ userController.logIn = async (req, res, next) => {
 
     // generate jwt token
     const token = jwt.sign(
-      { id: user.id, username: username.username },
+      { id: user.id, username: user.username },
       JWT_SECRET,
       { expiresIn: "1h" }
     );
