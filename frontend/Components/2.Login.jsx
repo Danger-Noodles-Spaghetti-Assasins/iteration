@@ -66,7 +66,8 @@ const Login = () => {
         password
       });
       if (response.status === 200) {
-        const { user } = response.data;
+        const { user, token } = response.data;
+        localStorage.setItem('token', token); // store the token in localstorage
         console.log('Login successful:', user);
         navigate('/homepage');
       } else {

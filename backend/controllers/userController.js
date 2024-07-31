@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import supabase from "../supabase/supabaseClient.js";
 
+const JWT_SECRET = process.env.JWT_SECRET;
 const SALT_WORK_FACTOR = 10;
 
 const userController = {};
@@ -26,6 +28,15 @@ userController.logIn = async (req, res, next) => {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
+    // generate jwt token
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    // save user and token to res.locals
+    res.locals.user = { id: user.id, username: user.username };
+    res.locals.token = token;
     return next();
   } catch (err) {
     next(err);
@@ -33,26 +44,36 @@ userController.logIn = async (req, res, next) => {
 };
 
 userController.createUser = async (req, res, next) => {
-  async function hashPassword(password){
-      const hashedPassword = await bcrypt.hash
-  (password, SALT_WORK_FACTOR);
+  async function hashPassword(password) {
+    const hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
     return hashedPassword;
   }
   try {
-    console.log("Tried Block Enter");
     const username = req.body.username;
     const password = await hashPassword(req.body.password);
     const email = req.body.email;
-    console.log({ email }, req.body.email);
 
-    
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("users")
-      .insert({ username, password: password, email: email });
-    console.log("USER CREATED AND SAVED");
+      .insert({ username, password, email })
+      .select("*"); // assuming supabase returns the inserted user data
     if (error) {
       throw error;
-    } else return next();
+    }
+
+    const user = data[0];
+
+    // generate jwt token
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // save user and token to res.locals
+    res.locals.user = { id: user.id, username: user.username };
+    res.locals.token = token;
+    return next();
   } catch (err) {
     const errObj = {
       log: `Create user failed: ${err}`,
@@ -62,7 +83,6 @@ userController.createUser = async (req, res, next) => {
   }
 };
 
-  
 // userController.favCoin = async()
-  
+
 export default userController;
