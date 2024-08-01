@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {AppBar, Box, Toolbar, IconButton, Typography, styled, Drawer, List, TextField, ListItem, ListItemButton, ListItemText, InputBase, Autocomplete} from "@mui/material";
-import {Menu, ChevronLeft} from '@mui/icons-material';
+import {AppBar, Box, Toolbar, IconButton, Typography, styled, Icon, Drawer, List, TextField, ListItem, ListItemButton, ListItemText, Autocomplete} from "@mui/material";
+import {Menu, ChevronLeft, Search, Home, Favorite, Logout} from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
@@ -122,10 +122,14 @@ const NavBar = () => {
                 </Typography>
                 <Autocomplete
                   id="bitcoin-select"
+                  className='MuiAutocomplete-popupIcon'
+                  //popupIcon= {() => <Icon>Search</Icon>}
+                  //forcePopupIcon='true'
                   sx={{ width: 300 }}
                   options={filteredData}
                   autoHighlight
                   getOptionLabel={(option) => option.name}
+                  disableClearable
                   renderOption={(props, option) => {
                     const { key, ...optionProps } = props;
                     return (
@@ -180,11 +184,12 @@ const NavBar = () => {
         </DrawerHeader>
         
         <List>
-          {[['Home',"/homepage"], ['Favorites',"/favorites"], ['Sign out',"/"]].map((arr, index) => (
+          {[['Home',"/homepage", <Home/>], ['Favorites',"/favorites", <Favorite/>], ['Sign out',"/", <Logout/>]].map((arr, index) => (
             <Link to={arr[1]} style={{textDecoration: 'none'}} onClick={handleDrawerClose}>
               <ListItem key={index} disablePadding>
                 <ListItemButton>
-                      <ListItemText primary={arr[0]} />
+                      {arr[2]}
+                      <ListItemText sx={{ml:"2ch"}} primary={arr[0]} />
                 </ListItemButton>
               </ListItem>
             </Link>
