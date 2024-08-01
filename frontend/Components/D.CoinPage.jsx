@@ -40,28 +40,28 @@ const CoinPage = () => {
       }, [coinId]);
 
 
-    useEffect(() => {
-        const fetchMoreData = async () => {
-            try {
-                const response = await fetch('/api/ratings', {
-                    method: "GET"
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    const moreDataArr = data.data.items;
-                    setMoreCryptoData(moreDataArr);
-                } else {
-                    throw new Error(`Error: ${response.status}`);
-                }
-            } catch (error) {
-                // console.error("Fetch Error:", error);
-                setError(error.message);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchMoreData = async () => {
+    //         try {
+    //             const response = await fetch('/api/ratings', {
+    //                 method: "GET"
+    //             });
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 const moreDataArr = data.data.items;
+    //                 setMoreCryptoData(moreDataArr);
+    //             } else {
+    //                 throw new Error(`Error: ${response.status}`);
+    //             }
+    //         } catch (error) {
+    //             // console.error("Fetch Error:", error);
+    //             setError(error.message);
+    //         }
+    //     };
 
 
-        fetchMoreData();
-    }, []);
+    //     fetchMoreData();
+    // }, []);
 
 
     //added error handling
