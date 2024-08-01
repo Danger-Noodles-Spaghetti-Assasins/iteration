@@ -1,6 +1,7 @@
 import express from "express";
 import tiApiController from "../controllers/tiApiController.js";
 import userController from "../controllers/userController.js";
+import coinController from "../controllers/coinController.js";
 
 const router = express.Router();
 
@@ -36,4 +37,9 @@ router.post("/logIn", userController.logIn, (req, res) => {
 router.post("/signup", userController.createUser, (req, res) => {
   res.status(200).json({ user: res.locals.user, token: res.locals.token });
 });
+
+router.post("/favCoin", coinController.favCoin, (req, res) => {
+  res.status(200).json({ user: res.locals.user });
+});
+
 export default router;
