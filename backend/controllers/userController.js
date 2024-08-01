@@ -37,6 +37,7 @@ userController.logIn = async (req, res, next) => {
     // save user and token to res.locals
     res.locals.user = { id: user.id, username: user.username };
     res.locals.token = token;
+    res.cookie('user', token);
     return next();
   } catch (err) {
     next(err);
@@ -58,6 +59,7 @@ userController.createUser = async (req, res, next) => {
       .insert({ username, password, email })
       .select("*"); // assuming supabase returns the inserted user data
     if (error) {
+      console.log(error);
       throw error;
     }
 
@@ -73,6 +75,7 @@ userController.createUser = async (req, res, next) => {
     // save user and token to res.locals
     res.locals.user = { id: user.id, username: user.username };
     res.locals.token = token;
+    res.cookie('user', token);
     return next();
   } catch (err) {
     const errObj = {

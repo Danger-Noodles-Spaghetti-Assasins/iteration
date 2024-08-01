@@ -14,10 +14,13 @@ const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, ran
 
   const favoriteBtn = async (event) => {
     event.preventDefault();
+    // const getUserFromToken = async () => {
+    //   const token = await localStorage.getItem('token');
+    //   if (!token) return null;
+
+    // }
     try {
       const response = await axios.post('http://localhost:3000/api/favCoin', {
-        // TODO: figure out how to pull userId from jwt/cookies
-        userId,
         coinId,
       })
     } catch (error) {
@@ -35,7 +38,7 @@ const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, ran
       </section>
       <div id="sidebar">
         <h3 id="coinName">{name}</h3>
-        <Button variant="contained" onClick="favoriteBtn"> Favorite </Button>
+        <Button variant="contained" onClick={favoriteBtn}> Favorite </Button>
         <h1 id="coinPrice">{`${'$' + price.toLocaleString('en-US')}`}</h1>
         <p className="coinDetail">Rank: {rank}</p>
         <p className="coinDetail">Rating: {rating}</p>
