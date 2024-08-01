@@ -4,12 +4,34 @@ import Graph from './G.Graph.jsx';
 // import '../Styling/E.Coin.css';
 import { Button, CssBaseline } from "@mui/material";
 import Box from '@mui/material/Box';
+
 import Stack from '@mui/material/Stack';
+
+import axios from 'axios';
+
+
 
 const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, rank, rating, marketCap, circulatingSupply, totalSupply, low, high }) => {
 
   const [coinsData, setCoinsData] = useState([]);
   const [ratingsData, setRatingsData] = useState([]);
+
+  const favoriteBtn = async (event) => {
+    event.preventDefault();
+    // const getUserFromToken = async () => {
+    //   const token = await localStorage.getItem('token');
+    //   if (!token) return null;
+
+    // }
+    try {
+      const response = await axios.post('http://localhost:3000/api/favCoin', {
+        coinId,
+      })
+    } catch (error) {
+      console.error('Error favoriting coin:', error.response?.data || error.message);
+      alert('Favoriting coin failed. Please try again later.'); 
+    }
+  };
 
   return (
     <Stack direction="row" spacing={2} useFlexGap="true" justifyContent={"center"} sx={{
