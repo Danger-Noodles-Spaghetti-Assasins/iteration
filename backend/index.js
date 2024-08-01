@@ -6,6 +6,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import routerAPI from "./routes/api.js";
 import userController from "./controllers/userController.js";
+import cookieParser from "cookie-parser";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -25,6 +26,7 @@ const __dirname = path.dirname(__filename);
 // Middleware
 
 app.use(express.json());
+app.use(cookieParser());
 
 // CORS middleware options
 const corsOptions = {

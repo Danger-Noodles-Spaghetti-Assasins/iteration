@@ -38,21 +38,8 @@ router.post("/signup", userController.createUser, (req, res) => {
   res.status(200).json({ user: res.locals.user, token: res.locals.token });
 });
 
-/*router.post("/favCoin", coinController.favCoin, (req, res) => {
-  res.status(200).json({ user: res.locals.user });
-});
-
-router.post("/displayFavCoins", coinController.displayFavCoins, (req, res) => {
-  res.status(200).json({ user: res.locals.user });
-});
-
 router.post("/favCoin", coinController.favCoin, (req, res) => {
   res.status(200).json({ user: res.locals.user });
 });
-
-router.post("/displayFavCoins", coinController.displayFavCoins, (req, res) => {
-  res.status(200).json({ user: res.locals.user });
-});
-*/
 
 export default router;
