@@ -39,7 +39,6 @@ app.use(cors(corsOptions));
 app.use("/api", routerAPI);
 
 
-
 // Unknown route handler
 
 app.use((req, res) => res.sendStatus(404));
