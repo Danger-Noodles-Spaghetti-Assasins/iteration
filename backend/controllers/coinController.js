@@ -13,7 +13,7 @@ coinController.favCoin = async (req, res, next) => {
   try {
     const { error } = await supabase
       .from("favorites")
-      .insert({ user_id: id, coin_id: coinId });
+      .insert({ user_id: id, coin_name: coinId });
     if (error) {
       throw error;
     } else 
