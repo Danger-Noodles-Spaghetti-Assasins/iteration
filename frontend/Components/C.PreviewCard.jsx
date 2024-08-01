@@ -21,7 +21,7 @@ const PreviewCard = ({ name, price, symbol, logo, rank }) => { // Added onClick 
         }
       }}>
       <Grid item xs={12}>
-        <Typography nowrap variant='h5' color={"primary.contrastText"} mt={2} sx={{textAlign:'center'}}>
+        <Typography noWrap variant='h5' color={"primary.contrastText"} mt={2} sx={{textAlign:'center'}}>
           {name}
         </Typography>
       </Grid>
