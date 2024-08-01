@@ -62,7 +62,7 @@ const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, ran
         }}>
           <div id="sidebar">
           <h3 id="coinName">{name}</h3>
-          <Button variant="contained"> Favorite </Button>
+          <Button variant="contained" onClick={favoriteBtn}> Favorite </Button>
           <h1 id="coinPrice">{`${'$' + price.toLocaleString('en-US')}`}</h1>
           <p className="coinDetail">Rank: {rank}</p>
           <p className="coinDetail">Rating: {rating}</p>
