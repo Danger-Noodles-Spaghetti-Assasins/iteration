@@ -125,7 +125,7 @@ const NavBar = () => {
                   className='MuiAutocomplete-popupIcon'
                   //popupIcon= {() => <Icon>Search</Icon>}
                   //forcePopupIcon='true'
-                  sx={{ width: 300 }}
+                  sx={{ width: {xs: '20ch', md: '35ch' } }}
                   options={filteredData}
                   autoHighlight
                   getOptionLabel={(option) => option.name}
