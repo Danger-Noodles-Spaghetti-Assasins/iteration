@@ -10,16 +10,19 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import NavBar from './NavBar';
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
-import { orange } from "@mui/material/colors";
 import { dark } from '@mui/material/styles/createPalette.js';
 
  const App = () => {
     const theme = createTheme({
         palette:{
-            mode: "dark",
+            mode: "light",
             primary: {
-                main: orange[500]
+                main:"#6D98BA"
+            },
+            secondary: {
+                main:"#D3B99F"
             }
         }
     })
@@ -29,6 +32,7 @@ import { dark } from '@mui/material/styles/createPalette.js';
         <ThemeProvider theme={theme}>
             <CssBaseline/>    
             <div id="outerContainer">
+                <NavBar/>
                 <Router>
                     <Routes>
                     <Route path="/homepage" element={<Homepage />} />
