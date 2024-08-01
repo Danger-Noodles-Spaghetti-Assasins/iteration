@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import Coin from './E.Coin';
 import { useParams } from 'react-router-dom';
 import '../Styling/D.CoinPage.css';

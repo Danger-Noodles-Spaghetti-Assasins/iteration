@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'; // Import React and hooks (u
 import Plot from 'react-plotly.js'; // Import Plot component from react-plotly.js
 import axios from 'axios'; // Import axios for making HTTP requests
 import styled from 'styled-components'; // Import styled-components for styling
-import '../Styling/G.Graph.css';
+// import '../Styling/G.Graph.css';
 
 // Styled components
 
@@ -182,7 +182,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                                 color: 'white'
                             }
                         }}
-                        style={{ width: '100%', height: '400px' }}
+                        // style={{ width: '100%', height: '400px' }}
                     />
                     {renderHighLowVolume()}
                 </div>
@@ -215,7 +215,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                                     color: 'white'
                                 }
                             }}
-                            style={{ width: '100%', height: '400px' }}
+                            // style={{ width: '100%', height: '400px' }}
                         />
                     </div>
                     <div className="plotContainer">
@@ -232,7 +232,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                                     color: 'white'
                                 }
                             }}
-                            style={{ width: '100%', height: '400px' }}
+                            // style={{ width: '100%', height: '400px' }}
                         />
                     </div>
                     <div className="plotContainer">
@@ -249,7 +249,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                                     color: 'white'
                                 }
                             }}
-                            style={{ width: '100%', height: '400px' }}
+                            // style={{ width: '100%', height: '400px' }}
                         />
                     </div>
                 </>
