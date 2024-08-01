@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PreviewCard from './C.PreviewCard';
-import {Grid, Box, Link } from "@mui/material";
+import {Grid, Box } from "@mui/material";
 
 // import Select from 'react-select';
 // import '../Styling/B.Homepage.css';
@@ -67,7 +67,7 @@ const HomePage = () => {
               <Grid container spacing={4}>
                 {cryptoData.map((crypto, index) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} justifyContent='center'>
-                        <Link key={index} href={`/coinpage/${crypto.id}`} underline="none">
+                        <Link key={index} to={`/coinpage/${crypto.id}`}>
                             <PreviewCard
                             name={crypto.name}
                             price={crypto.price}
