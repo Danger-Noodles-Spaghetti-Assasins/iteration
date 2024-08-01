@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import PreviewCard from './C.PreviewCard';
-import {Grid, Box } from "@mui/material";
-import {Grid, Box } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
 // import Select from 'react-select';
 // import '../Styling/B.Homepage.css';
