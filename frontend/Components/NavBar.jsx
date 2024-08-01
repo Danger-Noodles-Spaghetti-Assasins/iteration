@@ -1,30 +1,50 @@
-import React from 'react';
-import {AppBar, Box, Toolbar, IconButton, Typography, styled, Drawer, List, ListItem, ListItemButton, ListItemText, Link} from "@mui/material";
-import {Menu, Search, ChevronLeft } from '@mui/icons-material';
+import React, { useEffect, useState } from 'react';
+import {AppBar, Box, Toolbar, IconButton, Typography, styled, Drawer, List, TextField, ListItem, ListItemButton, ListItemText, InputBase, Autocomplete} from "@mui/material";
+import {Menu, ChevronLeft} from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     const [open, setOpen] = React.useState(false);
 
     const drawerWidth = 240;
 
-    const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: `-${drawerWidth}px`,
-        ...(open && {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-        }),
-    }),
-    );
+    const [cryptoData, setCryptoData] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch('/api/coins', {
+            method: "GET"
+          });
+          if (response.ok) {
+            const data = await response.json();
+            console.log("data: ", data)
+            const newArr = data.coinList.data.items;
+            setCryptoData(newArr);
+          } else {
+            throw new Error(`Error: ${response.status}`);
+          }
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+    
+      fetchData();
+    }, []);
+
+    
+    useEffect(() => {
+      let options = cryptoData.map(function (coin) {
+        return { id: coin.id, name : coin.name, label: coin.name, logo: coin.logo };
+      })
+      setFilteredData(options);
+    }, [searchTerm, cryptoData]);
 
     const AppBarStyled = styled(AppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -59,6 +79,23 @@ const NavBar = () => {
       setOpen(false);
     };
 
+    const StyledInputBase = styled(InputBase)(({ theme }) => ({
+      color: 'inherit',
+      width: '100%',
+      '& .MuiInputBase-input': {
+        padding: theme.spacing(1, 1, 1, 0),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        [theme.breakpoints.up('sm')]: {
+          width: '12ch',
+          '&:focus': {
+            width: '24ch',
+          },
+        }
+      },
+    }));
+
     return (
     <Box sx={{ flexGrow: 1, mb:4 }}>
         <AppBarStyled position="static" open={open}>
@@ -74,15 +111,52 @@ const NavBar = () => {
                 <Menu />
                 </IconButton>
                 <Typography
-                    variant="h6"
+                    variant="h5"
                     noWrap
                     component="div"
-                    sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                    sx={{ flexGrow: 1, display: { xs: 'block' } }}
                     color="primary.contrastText"
                 >
                 CryptoShield
                 </Typography>
-                <Search />
+                <Autocomplete
+                  id="bitcoin-select"
+                  sx={{ width: 300 }}
+                  options={filteredData}
+                  autoHighlight
+                  getOptionLabel={(option) => option.name}
+                  renderOption={(props, option) => {
+                    const { key, ...optionProps } = props;
+                    return (
+                      <Link key={option.name} to={`/coinpage/${option.id}`} style={{ textDecoration: 'none'}}>
+                        <Box
+                          key={key}
+                          component="li"
+                          sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                          {...optionProps}
+                        >
+                          <img
+                            loading="lazy"
+                            width="20"
+                            srcSet={option.logo}
+                            src={option.logo}
+                            alt={option.name}
+                          />
+                          {option.name}
+                        </Box>
+                      </Link>
+                    );
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Search a Cyptocurrency"
+                      inputProps={{
+                        ...params.inputProps
+                      }}
+                    />
+                  )}
+                />
             </Toolbar>
         </AppBarStyled>
         <Drawer
@@ -106,13 +180,13 @@ const NavBar = () => {
         
         <List>
           {[['Home',"/homepage"], ['Favorites',"/favorites"], ['Sign out',"/"]].map((arr, index) => (
-            <ListItem key={index} disablePadding>
-              <ListItemButton>
-                <Link href={arr[1]} underline="none">
-                    <ListItemText primary={arr[0]} />
-                </Link>
-              </ListItemButton>
-            </ListItem>
+            <Link to={arr[1]} style={{textDecoration: 'none'}}>
+              <ListItem key={index} disablePadding>
+                <ListItemButton>
+                      <ListItemText primary={arr[0]} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>

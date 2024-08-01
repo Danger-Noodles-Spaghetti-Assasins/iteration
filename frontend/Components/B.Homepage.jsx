@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PreviewCard from './C.PreviewCard';
+import {Grid, Box } from "@mui/material";
 import {Grid, Box } from "@mui/material";
 
 // import Select from 'react-select';
@@ -47,7 +49,7 @@ const HomePage = () => {
 
   useEffect(() => {
     let options = cryptoData.map(function (coin) {
-      return { value: coin.name, label: coin.name };
+      return { value: coin.name, label: coin.name};
     })
     setFilteredData(options);
   }, [searchTerm, cryptoData]);
@@ -66,8 +68,8 @@ const HomePage = () => {
             <Box sx={{ flexGrow: 1, mx:'10%'}}>
               <Grid container spacing={4}>
                 {cryptoData.map((crypto, index) => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} justifyContent='center'>
-                        <Link key={index} to={`/coinpage/${crypto.id}`}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={index} justifyContent='center'>
+                        <Link key={index + 'a'} to={`/coinpage/${crypto.id}`} style={{margin: '5%', textDecoration: 'none'}}>
                             <PreviewCard
                             name={crypto.name}
                             price={crypto.price}

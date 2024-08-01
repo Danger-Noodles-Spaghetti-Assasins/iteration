@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import Graph from './G.Graph.jsx';
-// import '../Styling/E.Coin.css';
-import { Button, CssBaseline } from "@mui/material";
+import { Button } from "@mui/material";
 import Box from '@mui/material/Box';
 
 import Stack from '@mui/material/Stack';
