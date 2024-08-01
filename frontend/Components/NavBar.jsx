@@ -15,6 +15,7 @@ const NavBar = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
+      handleDrawerClose();
       const fetchData = async () => {
         try {
           const response = await fetch('/api/coins', {
@@ -49,7 +50,7 @@ const NavBar = () => {
     const AppBarStyled = styled(AppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
     })(({ theme, open }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
+        transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
@@ -79,22 +80,22 @@ const NavBar = () => {
       setOpen(false);
     };
 
-    const StyledInputBase = styled(InputBase)(({ theme }) => ({
-      color: 'inherit',
-      width: '100%',
-      '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        [theme.breakpoints.up('sm')]: {
-          width: '12ch',
-          '&:focus': {
-            width: '24ch',
-          },
-        }
-      },
-    }));
+    // const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    //   color: 'inherit',
+    //   width: '100%',
+    //   '& .MuiInputBase-input': {
+    //     padding: theme.spacing(1, 1, 1, 0),
+    //     // vertical padding + font size from searchIcon
+    //     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    //     transition: theme.transitions.create('width'),
+    //     [theme.breakpoints.up('sm')]: {
+    //       width: '12ch',
+    //       '&:focus': {
+    //         width: '24ch',
+    //       },
+    //     }
+    //   },
+    // }));
 
     return (
     <Box sx={{ flexGrow: 1, mb:4 }}>
@@ -180,7 +181,7 @@ const NavBar = () => {
         
         <List>
           {[['Home',"/homepage"], ['Favorites',"/favorites"], ['Sign out',"/"]].map((arr, index) => (
-            <Link to={arr[1]} style={{textDecoration: 'none'}}>
+            <Link to={arr[1]} style={{textDecoration: 'none'}} onClick={handleDrawerClose}>
               <ListItem key={index} disablePadding>
                 <ListItemButton>
                       <ListItemText primary={arr[0]} />

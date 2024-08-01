@@ -25,7 +25,7 @@ const PreviewCard = ({ name, price, symbol, logo, rank }) => { // Added onClick 
           {name}
         </Typography>
       </Grid>
-      <Grid item xs={12}><Avatar className="logo" src={logo} alt={`${name} logo`} sx={{height: 'auto', width:'auto', m:'20%', }}/></Grid>
+      <Grid item xs={12}><Avatar className="logo" src={logo} alt={`${name} logo`} sx={{height:'auto', width:'auto', aspectRatio:'1', m:'20%', objectFit: 'cover'}}/></Grid>
       <Grid item xs={12}>
         <Typography align='center' sx={{mx:2, verticalAlign: 'middle'}}>
           <Typography color='text.primary'>
