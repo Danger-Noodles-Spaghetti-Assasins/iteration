@@ -6,11 +6,11 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export default {
+const config = {
   entry: "./frontend/index.jsx",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    filename: "bundle.js"
   },
   devServer: {
     static: {
@@ -51,5 +51,6 @@ export default {
   ],
   resolve: {
     extensions: [".js", ".jsx"],
-  },
+  }
 };
+export default config;

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Coin from './E.Coin';
 import { useParams } from 'react-router-dom';
-import '../Styling/D.CoinPage.css';
+import { Grid } from "@mui/material";
+// import '../Styling/D.CoinPage.css';
 
 const CoinPage = () => {
     const { coinId } = useParams(); // Extract coinId from URL
     const [cryptoData, setCryptoData] = useState([]);
-    // const [moreCryptoData, setMoreCryptoData] = useState([]);  // lint taming. uncomment if you're going to use it
+    const [moreCryptoData, setMoreCryptoData] = useState([]);  // lint taming. uncomment if you're going to use it
     const [error, setError] = useState(null);
 
 
@@ -83,8 +84,8 @@ const CoinPage = () => {
     return (
 
 //priceData.price_latest ? `${Number(priceData.price_latest).toLocaleString('en-US')}` : `N/A`
-        <div className='container'>
-            <div className='content'>
+        <Grid container>
+            <Grid item>
                 <Coin
                     key={cryptoData.id ? cryptoData.id : `N/A`}
                     coinId={cryptoData.id ? cryptoData.id : `N/A`}
@@ -104,8 +105,8 @@ const CoinPage = () => {
                 // need to add more data points
                 // ^^^like what???
                 />
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     );
 };
 
