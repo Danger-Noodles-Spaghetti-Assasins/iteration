@@ -51,6 +51,15 @@ const Profile = () => {
     }
   }, [favCoinNames]);
 
+  const handleRemove = async (coinId) => {
+    try {
+      await axios.post("/api/deleteFavCoin", { coinId });
+      setFavCoinNames(prev => prev.filter(name => name !== coinId));
+    } catch (error) {
+      console.error("Error removing favorite coin:", error);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -66,10 +75,6 @@ const Profile = () => {
   return (
     <div className='container'>
       {favCoinDetails.map((coin) => {
-        if (!coin || !coin.data) {
-          console.warn("Incomplete coin data", coin);
-          return null; // Skip this coin if details are incomplete
-        }
 
         const cryptoData = coin.data;
         const marketData = cryptoData.market_data;
@@ -94,6 +99,8 @@ const Profile = () => {
                 totalSupply={marketData.max_supply ? `${Number(marketData.max_supply).toLocaleString('en-US')}` : 'N/A'}
                 low={priceData.low_24h ? `$${Number(priceData.low_24h).toLocaleString('en-US')}` : 'N/A'}
                 high={priceData.high_24h ? `$${Number(priceData.high_24h).toLocaleString('en-US')}` : 'N/A'}
+                isFavorite={true} // new prop: indicating the coin is a favorite
+                onRemoveFromFavorites={handleRemove} // new prop: handler for removing from favorites
               />
               <Graph coinId={cryptoData.id} />
             </div>
