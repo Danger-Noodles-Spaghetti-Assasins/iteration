@@ -42,4 +42,12 @@ router.post("/favCoin", coinController.favCoin, (req, res) => {
   res.status(200).json({ user: res.locals.user });
 });
 
+router.get("/displayFavCoins", coinController.displayFavCoins, (req, res) => {
+  res.status(200).json({ favCoins: res.locals.favCoins });
+});
+
+router.post("/deleteFavCoin", coinController.deleteFavCoin, (req, res) => {
+  res.status(200).json({ message: "Coin removed from favorites successfully" });
+});
+
 export default router;

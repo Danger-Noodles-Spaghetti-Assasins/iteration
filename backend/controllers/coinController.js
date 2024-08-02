@@ -28,4 +28,58 @@ coinController.favCoin = async (req, res, next) => {
   }
 };
 
+// New displayFavCoins function to retrieve only the coin names
+coinController.displayFavCoins = async (req, res, next) => {
+  const { id } = jwtDecode(req.cookies.user);
+
+  try {
+    const { data: favorites, error } = await supabase
+      .from("favorites")
+      .select("coin_name")
+      .eq("user_id", id);
+
+    if (error) {
+      throw error;
+    } else {
+      res.locals.favCoins = favorites.map(fav => fav.coin_name);
+      return next();
+    }
+
+  } catch (err) {
+    const errObj = {
+      log: `Fetching favorite coins failed: ${err}`,
+      message: { err: "Fetching favorite coins failed, check server log for details" },
+    };
+    return next(errObj);
+  }
+};
+
+coinController.deleteFavCoin = async (req, res, next) => {
+  const { coinId } = req.body;
+  const { id } = jwtDecode(req.cookies.user);
+
+  try {
+    const { error } = await supabase
+      .from("favorites")
+      .delete()
+      .eq("user_id", id)
+      .eq("coin_name", coinId);
+
+    if (error) {
+      throw error;
+    } else {
+      console.log("Entry deleted from favorites table");
+      return next();
+    }
+  } catch (err) {
+    const errObj = {
+      log: `Deleting favorite coin failed: ${err}`,
+      message: {
+        err: "Deleting favorite coin failed, check server log for details",
+      },
+    };
+    return next(errObj);
+  }
+};
+
 export default coinController;

@@ -1,33 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Graph from './G.Graph.jsx';
 import { Button, CssBaseline } from "@mui/material";
 import Box from '@mui/material/Box';
-
 import Stack from '@mui/material/Stack';
-
 import axios from 'axios';
 
-
-
-const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, rank, rating, marketCap, circulatingSupply, totalSupply, low, high }) => {
-
-  const [coinsData, setCoinsData] = useState([]);
-  const [ratingsData, setRatingsData] = useState([]);
-
+const Coin = ({ 
+  coinId, name, price, symbol, logo, volume, percentChange24H, rank, 
+  rating, marketCap, circulatingSupply, totalSupply, low, high, 
+  isFavorite, onRemoveFromFavorites 
+}) => {
   const favoriteBtn = async (event) => {
     event.preventDefault();
-    // const getUserFromToken = async () => {
-    //   const token = await localStorage.getItem('token');
-    //   if (!token) return null;
-
-    // }
     try {
-      const response = await axios.post('http://localhost:3000/api/favCoin', {
-        coinId,
-      })
+      const response = await axios.post('http://localhost:3000/api/favCoin', { coinId });
+      alert(`${coinId} has been added to your favorites.`);
     } catch (error) {
       console.error('Error favoriting coin:', error.response?.data || error.message);
-      alert('Favoriting coin failed. Please try again later.'); 
+      alert('Favoriting coin failed. Please try again later.');
     }
   };
 
@@ -46,10 +36,9 @@ const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, ran
         borderRadius: 4,
         overflowY: "scroll"
       }}>
-          <Graph coinId={coinId} /> {/* Pass the coinId to the Graph component */}
+        <Graph coinId={coinId} /> {/* Pass the coinId to the Graph component */}
       </Box>
-
-      <Box sx={{ 
+      <Box sx={{
         alignItems: "left",
         bgcolor: "primary.main",
         height: 750,
@@ -57,10 +46,15 @@ const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, ran
         px: .5,
         border: '2px solid grey',
         borderRadius: 4
-        }}>
-          <div id="sidebar">
+      }}>
+        <div id="sidebar">
           <h3 id="coinName">{name}</h3>
-          <Button variant="contained" onClick={favoriteBtn}> Favorite </Button>
+          {/* Add logic to conditionally display the button */}
+          {isFavorite ? (
+            <Button variant="contained" onClick={() => onRemoveFromFavorites(coinId)}>Remove from Favorites</Button> // New line: Remove button when isFavorite is true
+          ) : (
+            <Button variant="contained" onClick={favoriteBtn}>Favorite</Button>
+          )}
           <h1 id="coinPrice">{`${'$' + price.toLocaleString('en-US')}`}</h1>
           <p className="coinDetail">Rank: {rank}</p>
           <p className="coinDetail">Rating: {rating}</p>
@@ -73,16 +67,15 @@ const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, ran
           <div id="newsCard">
             <img id="newsImage" src="https://via.placeholder.com/50" alt="news" />
             <div id="newsText">
-                <div><b>Bitcoin Soars</b></div>
-                <div>Yahoo Finance</div>
-                <div>Kim Smith - July 11, 2024</div>
-              </div> 
+              <div><b>Bitcoin Soars</b></div>
+              <div>Yahoo Finance</div>
+              <div>Kim Smith - July 11, 2024</div>
+            </div>
           </div>
-          </div>
+        </div>
       </Box>
     </Stack>
   );
 };
-
 
 export default Coin;
