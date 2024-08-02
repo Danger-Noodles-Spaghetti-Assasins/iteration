@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import Graph from './G.Graph.jsx';
-// import '../Styling/E.Coin.css';
 import { Button, CssBaseline } from "@mui/material";
 import Box from '@mui/material/Box';
 
@@ -51,7 +49,7 @@ const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, ran
           <Graph coinId={coinId} /> {/* Pass the coinId to the Graph component */}
       </Box>
 
-      <Box sx={{
+      <Box sx={{ 
         alignItems: "left",
         bgcolor: "primary.main",
         height: 750,
@@ -78,7 +76,7 @@ const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, ran
                 <div><b>Bitcoin Soars</b></div>
                 <div>Yahoo Finance</div>
                 <div>Kim Smith - July 11, 2024</div>
-              </div>
+              </div> 
           </div>
           </div>
       </Box>
