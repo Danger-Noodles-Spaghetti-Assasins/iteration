@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Coin from './E.Coin'; // Assuming E.Coin is your Coin component
-import Graph from './G.Graph'; // Assuming G.Graph is your Graph component
+import Coin from './E.Coin'; 
 
 const Profile = () => {
   const [favCoinNames, setFavCoinNames] = useState([]);
   const [favCoinDetails, setFavCoinDetails] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchFavCoins = async () => {
@@ -21,7 +19,6 @@ const Profile = () => {
         setLoading(false);
       }
     };
-
     fetchFavCoins();
   }, []);
 
@@ -38,9 +35,7 @@ const Profile = () => {
 
     const loadCoinDetails = async () => {
       setLoading(true);
-      const coinDetailsPromises = favCoinNames.map((coinName) =>
-        fetchCoinDetails(coinName)
-      );
+      const coinDetailsPromises = favCoinNames.map((coinName) => fetchCoinDetails(coinName));
       const coinDetails = await Promise.all(coinDetailsPromises);
       setFavCoinDetails(coinDetails.filter(detail => detail !== null));
       setLoading(false);
@@ -64,9 +59,6 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   if (favCoinDetails.length === 0) {
     return <div>No favorite coins found.</div>;
@@ -75,11 +67,9 @@ const Profile = () => {
   return (
     <div className='container'>
       {favCoinDetails.map((coin) => {
-
         const cryptoData = coin.data;
         const marketData = cryptoData.market_data;
         const priceData = marketData.price[0];
-
         return (
           <div key={cryptoData.id} className="coin-container">
             <div className='content'>
@@ -99,10 +89,9 @@ const Profile = () => {
                 totalSupply={marketData.max_supply ? `${Number(marketData.max_supply).toLocaleString('en-US')}` : 'N/A'}
                 low={priceData.low_24h ? `$${Number(priceData.low_24h).toLocaleString('en-US')}` : 'N/A'}
                 high={priceData.high_24h ? `$${Number(priceData.high_24h).toLocaleString('en-US')}` : 'N/A'}
-                isFavorite={true} // new prop: indicating the coin is a favorite
-                onRemoveFromFavorites={handleRemove} // new prop: handler for removing from favorites
+                isFavorite={true}
+                onRemoveFromFavorites={handleRemove}
               />
-              <Graph coinId={cryptoData.id} />
             </div>
           </div>
         );
