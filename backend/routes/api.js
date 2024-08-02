@@ -42,4 +42,8 @@ router.post("/favCoin", coinController.favCoin, (req, res) => {
   res.status(200).json({ user: res.locals.user });
 });
 
+router.get("/displayFavCoins", coinController.displayFavCoins, (req, res) => {
+  res.status(200).json({ favCoins: res.locals.favCoins });
+});
+
 export default router;

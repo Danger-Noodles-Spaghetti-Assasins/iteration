@@ -28,4 +28,30 @@ coinController.favCoin = async (req, res, next) => {
   }
 };
 
+// New displayFavCoins function to retrieve only the coin names
+coinController.displayFavCoins = async (req, res, next) => {
+  const { id } = jwtDecode(req.cookies.user);
+
+  try {
+    const { data: favorites, error } = await supabase
+      .from("favorites")
+      .select("coin_name")
+      .eq("user_id", id);
+
+    if (error) {
+      throw error;
+    } else {
+      res.locals.favCoins = favorites.map(fav => fav.coin_name);
+      return next();
+    }
+
+  } catch (err) {
+    const errObj = {
+      log: `Fetching favorite coins failed: ${err}`,
+      message: { err: "Fetching favorite coins failed, check server log for details" },
+    };
+    return next(errObj);
+  }
+};
+
 export default coinController;

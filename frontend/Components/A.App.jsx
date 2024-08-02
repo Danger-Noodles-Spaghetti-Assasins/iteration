@@ -11,6 +11,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import NavBar from './NavBar';
+import Profile from './Profile'
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { dark } from '@mui/material/styles/createPalette.js';
 
@@ -41,6 +42,7 @@ import { dark } from '@mui/material/styles/createPalette.js';
                         <Route path="/coinpage/:coinId" element={<CoinPage />} />
                         <Route path="/" element={<Signup />} />
                         <Route path="/login" element={<Login />} />
+                        <Route path="/favorites" element={<Profile />} />
                     </Routes>
                 </Router>
             </div>

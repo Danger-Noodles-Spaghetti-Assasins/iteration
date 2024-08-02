@@ -27,6 +27,7 @@ const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, ran
       const response = await axios.post('http://localhost:3000/api/favCoin', {
         coinId,
       })
+      alert(`${coinId} has been added to your favorites.`)
     } catch (error) {
       console.error('Error favoriting coin:', error.response?.data || error.message);
       alert('Favoriting coin failed. Please try again later.'); 
