@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {AppBar, Box, Toolbar, IconButton, Typography, styled, Icon, Drawer, List, TextField, ListItem, ListItemButton, ListItemText, Autocomplete} from "@mui/material";
 import {Menu, ChevronLeft, Search, Home, Favorite, Logout} from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'; 
 import { color } from 'echarts';
 
 const NavBar = () => {
@@ -14,6 +15,9 @@ const NavBar = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    
+  
+    const navigate = useNavigate(); 
 
     useEffect(() => {
       handleDrawerClose();
@@ -81,6 +85,18 @@ const NavBar = () => {
       setOpen(false);
     };
 
+  
+    const handleLogout = async () => {
+      try { 
+        await axios.post('/api/logout'); 
+      } catch (error) {
+        console.error("Error during logout: ", error);
+      } finally {
+        // clear  cookie 
+        document.cookie = 'user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+        navigate('/Signup');
+      }
+    };
     // const StyledInputBase = styled(InputBase)(({ theme }) => ({
     //   color: 'inherit',
     //   width: '100%',
@@ -128,13 +144,14 @@ const NavBar = () => {
                 <Menu />
                 </IconButton>
                 <Typography
-                    variant="h5"
-                    noWrap
-                    component="div"
-                    sx={{ flexGrow: 1, display: { xs: 'block' } }}
-                    color="primary.contrastText"
+                  variant="h5"
+                  noWrap
+                  component="div"
+                  sx={{ flexGrow: 1, display: { xs: 'block' }, cursor: 'pointer' }} // add cursor pointer
+                  color="primary.contrastText"
+                  onClick={() => navigate('/homepage')} // add onClick to navigate to the homepage
                 >
-                CryptoShield
+                  CryptoShield
                 </Typography>
                 <Autocomplete
                   id="bitcoin-select"
@@ -198,17 +215,23 @@ const NavBar = () => {
             <ChevronLeft />
           </IconButton>
         </DrawerHeader>
-        
         <List>
-          {[['Home',"/homepage", <Home/>], ['Favorites',"/favorites", <Favorite/>], ['Sign out',"/", <Logout/>]].map((arr, index) => (
-            <Link to={arr[1]} style={linkStyle} onClick={handleDrawerClose} key={index}>
-              <ListItem key={index} disablePadding>
-                <ListItemButton>
-                      {arr[2]}
-                      <ListItemText sx={{ml:"2ch"}} primary={arr[0]} />
+          {[['Home', "/homepage", <Home />], ['Favorites', "/favorites", <Favorite />], ['Sign out', "/", <Logout />, handleLogout]].map((arr, index) => (
+            <ListItem key={index} disablePadding>
+              {arr[1] === '/Signup' ? (
+                <ListItemButton onClick={arr[3]}>
+                  {arr[2]}
+                  <ListItemText sx={{ ml: "2ch" }} primary={arr[0]} />
                 </ListItemButton>
-              </ListItem>
-            </Link>
+              ) : (
+                <Link to={arr[1]} style={{ textDecoration: 'none' }} onClick={handleDrawerClose}>
+                  <ListItemButton>
+                    {arr[2]}
+                    <ListItemText sx={{ ml: "2ch" }} primary={arr[0]} />
+                  </ListItemButton>
+                </Link>
+              )}
+            </ListItem>
           ))}
         </List>
       </Drawer>

@@ -88,4 +88,10 @@ userController.createUser = async (req, res, next) => {
 
 // userController.favCoin = async()
 
+userController.logout = async (req, res, next) => {
+  res.clearCookie("user");
+  res.status(200).json({ message: "Logged out successfully" });
+};
+
+
 export default userController;
