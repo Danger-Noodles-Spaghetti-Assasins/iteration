@@ -156,9 +156,11 @@ const NavBar = () => {
                 <Autocomplete
                   id="bitcoin-select"
                   className='MuiAutocomplete-popupIcon'
-                  //popupIcon= {() => <Icon>Search</Icon>}
-                  //forcePopupIcon='true'
-                  sx={{ width: {xs: '20ch', md: '35ch' } }}
+                  sx={{
+                    width: { xs: '15ch', md: '35ch' },
+                    border: '0.5px solid #cccccc', // set the border
+                    borderRadius: '4px', // border rounded corners
+                  }}
                   options={filteredData}
                   autoHighlight
                   getOptionLabel={(option) => option.name}
@@ -191,6 +193,16 @@ const NavBar = () => {
                       label="Search a Cyptocurrency"
                       inputProps={{
                         ...params.inputProps
+                      }}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' && params.inputProps.value) {
+                          const selectedOption = filteredData.find(
+                            (option) => option.name.toLowerCase() === params.inputProps.value.toLowerCase()
+                          );
+                          if (selectedOption) {
+                            navigate(`/coinpage/${selectedOption.id}`);
+                          }
+                        }
                       }}
                     />
                   )}
