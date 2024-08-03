@@ -39,6 +39,22 @@ const CoinPage = () => {
         fetchData();
       }, [coinId]);
 
+      function formatHighNum(num) {
+        const trillion = 1_000_000_000_000;
+        const billion = 1_000_000_000;
+        const million = 1_000_000;
+
+        if (num >= trillion) {
+          return `${(num / trillion).toFixed(2)}T`; 
+        } else if (num >= billion) {
+          return `${(num / billion).toFixed(2)}B`;
+        } else if (num >= million) {
+          return `${(num / million).toFixed(2)}M`;
+        } else {
+          return `$${Number(num).toLocaleString('en-US')}`;
+        }
+      };
+
 
     // useEffect(() => {
     //     const fetchMoreData = async () => {
@@ -93,13 +109,13 @@ const CoinPage = () => {
                     price={priceData.price_latest ? `${Number(priceData.price_latest).toLocaleString('en-US')}` : `N/A`}
                     symbol={cryptoData.symbol ? cryptoData.symbol : `N/A`}
                     logo={cryptoData.logo ? cryptoData.logo : `N/A`}
-                    volume={priceData.vol_spot_24h ? `$${Number(priceData.vol_spot_24h).toLocaleString('en-US')}` : `N/A`}
+                    volume={priceData.vol_spot_24h ? formatHighNum(priceData.vol_spot_24h) : `N/A`}
                     percentChange24H={priceData.price_change_percentage_24h ? priceData.price_change_percentage_24h : `N/A`}
                     rank={cryptoData.rank ? `#${cryptoData.rank}` : `N/A`}
                     rating={cryptoData.rating ? cryptoData.rating.rating : 'N/A'}
-                    marketCap={priceData.market_cap ? `$${Number(priceData.market_cap).toLocaleString('en-US')}` : `N/A`}
-                    circulatingSupply={marketData.circulating_supply ? `${Number(marketData.circulating_supply).toLocaleString('en-US')}` : `N/A`}
-                    totalSupply={marketData.max_supply ? `${Number(marketData.max_supply).toLocaleString('en-US')}` : `N/A`}
+                    marketCap={priceData.market_cap ? formatHighNum(priceData.market_cap) : `N/A`}
+                    circulatingSupply={marketData.circulating_supply ? formatHighNum(marketData.circulating_supply) : `N/A`}
+                    totalSupply={marketData.max_supply ? formatHighNum(marketData.max_supply) : `N/A`}
                     low={priceData.low_24h ? `$${Number(priceData.low_24h).toLocaleString('en-US')}` : `N/A`}
                     high={priceData.high_24h ? `$${Number(priceData.high_24h).toLocaleString('en-US')}` : `N/A`}
                 // need to add more data points

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 const Container = styled.div`
-  background-color: #0f1c3f;
+  background-color: white;
   color: white;
   display: flex;
   height: 100vh;
@@ -13,6 +13,8 @@ const Container = styled.div`
 `;
 
 const FormContainer = styled.div`
+  width: 40vh;
+  height: auto;
   background-color: #2c3e50;
   padding: 40px;
   border-radius: 10px;
@@ -45,6 +47,25 @@ const Button = styled.button`
 
 const LinkTo = styled.p`
   margin-top: 20px;
+`;
+
+const StyledLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding-left: 5px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: white;
+  }
+
+  &:active {
+    color:white
+  }
 `;
 
 const Signup = () => {
@@ -121,7 +142,7 @@ const Signup = () => {
             <Button type="submit">Register</Button>
           </Field>
           <LinkTo>
-            Already have an account? <Link to='/login'>Login Here</Link>
+            Already have an account? <StyledLink to='/login'>Login Here</StyledLink>
           </LinkTo>
         </form>
       </FormContainer>

@@ -3,6 +3,7 @@ import {AppBar, Box, Toolbar, IconButton, Typography, styled, Icon, Drawer, List
 import {Menu, ChevronLeft, Search, Home, Favorite, Logout} from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'; 
+import { color } from 'echarts';
 
 const NavBar = () => {
     const [open, setOpen] = React.useState(false);
@@ -112,6 +113,21 @@ const NavBar = () => {
     //     }
     //   },
     // }));
+
+    const linkStyle = {
+      color: 'inherit', 
+      textDecoration: 'none',
+      cursor: 'pointer', 
+      '&:visited': {
+        color: 'inherit'
+      },
+      '&:hover': {
+        textDecoration:'underline',
+      },
+      '&:active': {
+        color: 'inherit'
+      }
+    };
 
     return (
     <Box sx={{ flexGrow: 1, mb:4 }}>
