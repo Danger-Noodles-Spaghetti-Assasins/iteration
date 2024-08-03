@@ -28,7 +28,6 @@ const Coin = ({
     }}>
       <Box sx={{
         display: "flex",
-        width: 750,
         my: 4,
         bgcolor: "primary.main",
         px: 2,
@@ -40,8 +39,7 @@ const Coin = ({
       </Box>
       <Box sx={{
         alignItems: "left",
-        bgcolor: "primary.main",
-        height: 750,
+        bgcolor: "primary.main", 
         my: 4,
         px: .5,
         border: '2px solid grey',
@@ -64,14 +62,6 @@ const Coin = ({
           <p className="coinDetail">Total Supply: {totalSupply}</p>
           <p className="coinDetail">24H Low: {low}</p>
           <p className="coinDetail">24H High: {high}</p>
-          <div id="newsCard">
-            <img id="newsImage" src="https://via.placeholder.com/50" alt="news" />
-            <div id="newsText">
-              <div><b>Bitcoin Soars</b></div>
-              <div>Yahoo Finance</div>
-              <div>Kim Smith - July 11, 2024</div>
-            </div>
-          </div>
         </div>
       </Box>
     </Stack>
