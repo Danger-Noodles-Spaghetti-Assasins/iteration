@@ -112,7 +112,7 @@ const Signup = () => {
             <Input
               type="email"
               name="email"
-              placeholder='Email (optional):'
+              placeholder='Email:'
               value={email}
               onChange={handleInputChange}
             />
