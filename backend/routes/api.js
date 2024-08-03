@@ -50,4 +50,7 @@ router.post("/deleteFavCoin", coinController.deleteFavCoin, (req, res) => {
   res.status(200).json({ message: "Coin removed from favorites successfully" });
 });
 
+router.post("/logout", userController.logout);
+
+
 export default router;
