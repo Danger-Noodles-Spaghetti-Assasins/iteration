@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {AppBar, Box, Toolbar, IconButton, Typography, styled, Icon, Drawer, List, TextField, ListItem, ListItemButton, ListItemText, Autocomplete} from "@mui/material";
 import {Menu, ChevronLeft, Search, Home, Favorite, Logout} from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'
 
 const NavBar = () => {
     const [open, setOpen] = React.useState(false);
@@ -13,6 +13,9 @@ const NavBar = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    
+  
+    const navigate = useNavigate(); 
 
     useEffect(() => {
       handleDrawerClose();
@@ -112,13 +115,14 @@ const NavBar = () => {
                 <Menu />
                 </IconButton>
                 <Typography
-                    variant="h5"
-                    noWrap
-                    component="div"
-                    sx={{ flexGrow: 1, display: { xs: 'block' } }}
-                    color="primary.contrastText"
+                  variant="h5"
+                  noWrap
+                  component="div"
+                  sx={{ flexGrow: 1, display: { xs: 'block' }, cursor: 'pointer' }} // add cursor pointer
+                  color="primary.contrastText"
+                  onClick={() => navigate('/homepage')} // add onClick to navigate to the homepage
                 >
-                CryptoShield
+                  CryptoShield
                 </Typography>
                 <Autocomplete
                   id="bitcoin-select"
