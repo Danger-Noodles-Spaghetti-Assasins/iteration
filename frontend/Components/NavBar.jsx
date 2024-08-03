@@ -236,7 +236,7 @@ const NavBar = () => {
                   <ListItemText sx={{ ml: "2ch" }} primary={arr[0]} />
                 </ListItemButton>
               ) : (
-                <Link to={arr[1]} style={{ textDecoration: 'none' }} onClick={handleDrawerClose}>
+                <Link to={arr[1]} style={linkStyle} onClick={handleDrawerClose}>
                   <ListItemButton>
                     {arr[2]}
                     <ListItemText sx={{ ml: "2ch" }} primary={arr[0]} />
