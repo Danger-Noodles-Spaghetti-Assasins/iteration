@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {AppBar, Box, Toolbar, IconButton, Typography, styled, Icon, Drawer, List, TextField, ListItem, ListItemButton, ListItemText, Autocomplete} from "@mui/material";
 import {Menu, ChevronLeft, Search, Home, Favorite, Logout} from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import { color } from 'echarts';
 
 const NavBar = () => {
     const [open, setOpen] = React.useState(false);
@@ -97,6 +98,21 @@ const NavBar = () => {
     //   },
     // }));
 
+    const linkStyle = {
+      color: 'inherit', 
+      textDecoration: 'none',
+      cursor: 'pointer', 
+      '&:visited': {
+        color: 'inherit'
+      },
+      '&:hover': {
+        textDecoration:'underline',
+      },
+      '&:active': {
+        color: 'inherit'
+      }
+    };
+
     return (
     <Box sx={{ flexGrow: 1, mb:4 }}>
         <AppBarStyled position="static" open={open}>
@@ -185,7 +201,7 @@ const NavBar = () => {
         
         <List>
           {[['Home',"/homepage", <Home/>], ['Favorites',"/favorites", <Favorite/>], ['Sign out',"/", <Logout/>]].map((arr, index) => (
-            <Link to={arr[1]} style={{textDecoration: 'none'}} onClick={handleDrawerClose}>
+            <Link to={arr[1]} style={linkStyle} onClick={handleDrawerClose} key={index}>
               <ListItem key={index} disablePadding>
                 <ListItemButton>
                       {arr[2]}
